@@ -1,3 +1,5 @@
+""" Docstring. """
+
 from django.apps import AppConfig
 
 

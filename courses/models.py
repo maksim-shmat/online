@@ -49,15 +49,14 @@ class Content(models.Model):
     module = models.ForeignKey(Module, related_name='contents',
                                on_delete=models.CASCADE)
     content_type = models.ForeignKey(ContentType,
-                                     on_delete=models.CASCADE,
-                                     limit_choices_to={'model__in':(
-                                                       'text',
-                                                       'video',
-                                                       'image',
-                                                       'file')})
+                                     limit_choices_to={'model__in':('text',
+                                                                    'video',
+                                                                    'image',
+                                                                    'file')},
+                                     on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     item = GenericForeignKey('content_type', 'object_id')
-    order = OrderField(blank=True,for_fields=['module'])
+    order = OrderField(blank=True, for_fields=['module'])
 
     class Meta:
         ordering = ['order']
@@ -77,6 +76,11 @@ class ItemBase(models.Model):
     def __str__(self):
         return self.title
 
+    def render(self):
+        return render_to_string('courses/content/{}.html'.format(
+            self._meta.model_name), {'item': self})
+
+
 class Text(ItemBase):
     content = models.TextField()
 
@@ -84,4 +88,7 @@ class File(ItemBase):
     file = models.FileField(upload_to='files')
 
 class Image(ItemBase):
+    file = models.FileField(upload_to='images')
+
+class Video(ItemBase):
     url = models.URLField()
