@@ -197,7 +197,7 @@ class CourseListView(TemplateResponseMixin, View):
                     courses = all_courses.filter(subject=subject)
                     cache.set('all_courses', courses)
                     
-        return self.render_to_response({'subjects': subjects,
+            return self.render_to_response({'subjects': subjects,
                                         'subject': subject,
                                         'courses': courses})
 
