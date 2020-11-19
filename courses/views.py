@@ -52,23 +52,23 @@ class ManageCourseListView(OwnerCourseMixin, ListView):
 
 
 class CourseCreateView(PermissionRequiredMixin,
-        """ docs for class """
                        OwnerCourseEditMixin,
                        CreateView):
+    """ docs for class """
     permission_required = 'courses.add_course'
 
 
 class CourseUpdateView(PermissionRequiredMixin,
-        """ docs for class """
                        OwnerCourseEditMixin,
                        UpdateView):
+    """ docs for class """
     permission_required = 'courses.change_course'
 
 
 class CourseDeleteView(PermissionRequiredMixin,
-        """ docs for class """
                        OwnerCourseMixin,
                        DeleteView):
+    """ docs for class """
     template_name = 'courses/manage/course/delete.html'
     success_url = reverse_lazy('manage_course_list')
     permission_required = 'courses.delete_course'
