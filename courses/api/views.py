@@ -1,3 +1,4 @@
+""" Docs """
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -13,6 +14,7 @@ from .serializers import CourseSerializer
 
 
 class CourseViewSet(viewsets.ReadOnlyModelViewSet):
+    """ docs for class """
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
 
@@ -25,6 +27,7 @@ class CourseViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class CourseEnrollView(APIView):
+    """ docs for class """
     authentication_classes = (BasicAuthentication,)
     permission_classes = (IsAuthenticated,)
 
@@ -35,10 +38,12 @@ class CourseEnrollView(APIView):
 
 
 class SubjectListView(generics.ListAPIView):
+    """ docs for class """
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
 
 
 class SubjectDetailView(generics.RetrieveAPIView):
+    """ docs for class """
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer

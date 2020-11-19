@@ -1,3 +1,5 @@
+""" Docs """
+
 from django.urls import path
 from . import views
 from courses.views import CourseListView

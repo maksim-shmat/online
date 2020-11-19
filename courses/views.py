@@ -1,3 +1,4 @@
+""" Docs   """
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -18,46 +19,54 @@ from django.core.cache import cache
 
 
 class OwnerMixin(object):
+    """ docs for class """
     def get_queryset(self):
         qs = super(OwnerMixin, self).get_queryset()
         return qs.filter(owner=self.request.user)
 
 
 class OwnerEditMixin(object):
+    """ docs for class """
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super(OwnerEditMixin, self).form_valid(form)
 
 
 class OwnerCourseMixin(OwnerMixin, LoginRequiredMixin):
+    """ docs for class """
     model = Course
     fields = ['subject', 'title', 'slug', 'overview']
     success_url = reverse_lazy('manage_course_list')
 
 
 class OwnerCourseEditMixin(OwnerCourseMixin, OwnerEditMixin):
+    """ docs for class """
     fields = ['subject', 'title', 'slug', 'overview']
     success_url = reverse_lazy('manage_course_list')
     template_name = 'courses/manage/course/form.html'
 
 
 class ManageCourseListView(OwnerCourseMixin, ListView):
+    """ docs for class """
     template_name = 'courses/manage/course/list.html'
 
 
 class CourseCreateView(PermissionRequiredMixin,
+        """ docs for class """
                        OwnerCourseEditMixin,
                        CreateView):
     permission_required = 'courses.add_course'
 
 
 class CourseUpdateView(PermissionRequiredMixin,
+        """ docs for class """
                        OwnerCourseEditMixin,
                        UpdateView):
     permission_required = 'courses.change_course'
 
 
 class CourseDeleteView(PermissionRequiredMixin,
+        """ docs for class """
                        OwnerCourseMixin,
                        DeleteView):
     template_name = 'courses/manage/course/delete.html'
@@ -66,6 +75,7 @@ class CourseDeleteView(PermissionRequiredMixin,
 
 
 class CourseModuleUpdateView(TemplateResponseMixin, View):
+    """ docs for class """
     template_name = 'courses/manage/module/formset.html'
     course = None
 
@@ -91,6 +101,7 @@ class CourseModuleUpdateView(TemplateResponseMixin, View):
                                         'formset': formset})
 
 class ContentCreateUpdateView(TemplateResponseMixin, View):
+    """ docs for class """
     module = None
     model = None
     obj = None
@@ -138,6 +149,7 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
 
 
 class ContentDeleteView(View):
+    """ docs for class """
     def post(self, request, id):
         content = get_object_or_404(Content,
                                     id=id,
@@ -149,6 +161,7 @@ class ContentDeleteView(View):
 
 
 class ModuleContentListView(TemplateResponseMixin, View):
+    """ docs for class """
     template_name = 'courses/manage/module/content_list.html'
 
     def get(self, request, module_id):
@@ -159,6 +172,7 @@ class ModuleContentListView(TemplateResponseMixin, View):
 
 
 class ModuleOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View):
+    """ docs for class """
     def post(self, request):
         for id, order in self.request_json.items():
             Module.objects.filter(id=id,
@@ -167,6 +181,7 @@ class ModuleOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View):
 
 
 class ContentOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View):
+    """ docs for class """
     def post(self, request):
         for id, order in self.request_json.items():
             Content.objects.filter(id=id,
@@ -174,6 +189,7 @@ class ContentOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View):
         return self.render_json_response({'saved': 'OK'})
 
 class CourseListView(TemplateResponseMixin, View):
+    """ docs for class """
     model = Course
     template_name = 'courses/course/list.html'
 
@@ -202,6 +218,7 @@ class CourseListView(TemplateResponseMixin, View):
                                         'courses': courses})
 
 class CourseDetailView(DetailView):
+    """ docs for class """
     model = Course
     template_name = 'courses/course/detail.html'
 
