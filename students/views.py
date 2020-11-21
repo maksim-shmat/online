@@ -1,3 +1,5 @@
+""" Docs """
+
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
@@ -12,6 +14,7 @@ from django.views.generic.detail import DetailView
 
 
 class StudentEnrollCourseView(LoginRequiredMixin, FormView):
+    """ docs """
     course = None
     form_class = CourseEnrollForm
 
@@ -25,6 +28,7 @@ class StudentEnrollCourseView(LoginRequiredMixin, FormView):
 
 
 class StudentRegistrationView(CreateView):
+    """ docs """
     template_name = 'students/student/registration.html'
     form_class = UserCreationForm
     success_url = reverse_lazy('student_course_list')
@@ -38,6 +42,7 @@ class StudentRegistrationView(CreateView):
         return result
 
 class StudentCourseListView(LoginRequiredMixin, ListView):
+    """ docs """
     model = Course
     template_name = 'students/course/list.html'
 
@@ -46,6 +51,7 @@ class StudentCourseListView(LoginRequiredMixin, ListView):
         return qs.filter(students__in=[self.request.user])
 
 class StudentCourseDetailView(DetailView):
+    """ docs """
     model = Course
     template_name = 'students/course/detail.html'
 
